@@ -23,7 +23,7 @@ transformed as (
         l_shipinstruct as ship_instructions,
         
         -- status
-        l_linestatus as status_code,
+        l_linestatus as order_item_status_code,
         l_returnflag as return_flag,
         
         -- ids
