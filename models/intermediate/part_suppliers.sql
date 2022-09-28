@@ -21,7 +21,7 @@ part_supplier as (
 
     select * from {{ ref('stg_tpch_part_suppliers') }}
 
-),
+)
 
     select 
 
