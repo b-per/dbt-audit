@@ -6,38 +6,47 @@
     )
 }}
 
-with orders as (
-    
-    select * from {{ target.schema }}.stg_tpch_orders
+with
+
+line_items as (
+
+select * from {{ ref('stg_tpch_line_items') }}
 
 ),
 
+orders as (
+    
+    select * from {{ ref('stg_tpch_orders') }}
+
+),
+
+
 line_item as (
 
-    select         
-        {{ dbt_utils.surrogate_key(
-        ['l_orderkey', 
-        'l_linenumber']) }}
-            as order_item_id,
-        l_orderkey as order_id,
-        l_partkey as part_id,
-        l_suppkey as supplier_id,
-        l_linenumber as line_number,
-        l_comment as comment,
-        l_shipmode as ship_mode,
-        l_shipinstruct as ship_instructions,
-        l_linestatus as status_code,
-        l_returnflag as return_flag,
-        l_shipdate as ship_date,
-        l_commitdate as commit_date,
-        l_receiptdate as receipt_date,
-        l_quantity as quantity,
-        l_extendedprice as extended_price,
-        l_discount as discount_percentage,
-        l_tax as tax_rate
-    from {{ source('tpch', 'lineitem') }}
+    select   
+
+        order_item_id,
+        order_id,
+        part_id,
+        supplier_id,
+        line_number,
+        comment,
+        ship_mode,
+        ship_instructions,
+        status_code,
+        return_flag,
+        ship_date,
+        commit_date,
+        receipt_date,
+        quantity,
+        extended_price,
+        discount_percentage,
+        tax_rate
+
+    from line_items
 
 )
+
 select 
 
     line_item.order_item_id,

@@ -1,10 +1,12 @@
-with source as (
+with
+
+source as (
 
     select * from {{ source('tpch', 'lineitem') }}
 
 ),
 
-renamed as (
+transformed as (
 
     select
 
@@ -42,4 +44,4 @@ renamed as (
 
 )
 
-select * from renamed
+select * from transformed
