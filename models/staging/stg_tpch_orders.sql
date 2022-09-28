@@ -27,7 +27,7 @@ renamed as (
         -- dates
         o_orderdate as order_date
 
-    from tpch_sf1.orders
+    from raw_tpch.tpch_sf1.orders
 
 )
 
