@@ -1,13 +1,27 @@
+with
 
+source as (
 
-select
-    p_partkey as part_id,
-        P_NAME as name,
-        P_TYPE as type,
-        P_SIZE as size,
-        P_MFGR as manufacturer,
-        P_BRAND as brand,
+    select * from {{ source('tpch',  'part') }}
+
+),
+
+transformed as (
+
+    select
+
+        p_partkey as part_id,
+        p_name as name,
+        p_type as type,
+        p_size as size,
+        p_mfgr as manufacturer,
+        p_brand as brand,
         p_comment as comment,
         p_container as container,
-    p_retailprice as retail_price
-from {{ source('tpch', 'part') }}
+        p_retailprice as retail_price
+
+from source
+
+)
+
+select * from transformed
