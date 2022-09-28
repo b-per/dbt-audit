@@ -10,7 +10,10 @@ transformed as (
 
     select
 
+        -- ids
         p_partkey as part_id,
+
+        -- descriptions
         p_name as name,
         p_type as type,
         p_size as size,
@@ -18,6 +21,8 @@ transformed as (
         p_brand as brand,
         p_comment as comment,
         p_container as container,
+
+        -- amounts
         p_retailprice as retail_price
 
 from source
