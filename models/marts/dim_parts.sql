@@ -3,14 +3,19 @@
         materialized = 'incremental'
     )
 }}
-with part as (
+
+with
+
+part as (
 
     select * from {{ref('stg_tpch_parts')}}
 
 ),
 
 final as (
+
     select 
+
         part_id,
         manufacturer,
         name,
@@ -19,9 +24,9 @@ final as (
         size,
         container,
         retail_price
-    from
-        part
+
+    from part
+    order by 1
 )
-select *
-from final  
-order by part_id
+
+select * from final  
