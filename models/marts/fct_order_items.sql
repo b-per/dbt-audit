@@ -22,9 +22,6 @@ final as (
 
     select 
         order_item.order_item_id,
-        order_item.order_id,
-        order_item.order_date,
-        order_item.customer_id,
         order_item.part_id,
         order_item.supplier_id,
         order_item.order_item_status_code,

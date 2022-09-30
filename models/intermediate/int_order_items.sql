@@ -14,41 +14,27 @@ line_items as (
 
 ),
 
-orders as (
-    
-    select * from {{ ref('stg_tpch_orders') }}
-
-),
-
 final as (
 
     select 
 
         -- ids
-        orders.order_id,
-        orders.customer_id,
         line_items.order_item_id,
         line_items.part_id,
         line_items.supplier_id,
         
         -- dates
-        orders.order_date,
         line_items.ship_date,
         line_items.commit_date,
         line_items.receipt_date,
 
         -- status
-        orders.order_status_code,
-        orders.priority_code,
-        orders.ship_priority,
         line_items.return_flag,
         line_items.order_item_status_code,
         
         -- descriptions
-        orders.clerk_name,
         line_items.line_number,
         line_items.ship_mode,
-
 
         -- numbers
         line_items.extended_price,
@@ -72,10 +58,7 @@ final as (
             item_tax_amount
         ){{ money() }} as net_item_sales_amount
 
-    from
-        orders
-    inner join line_items
-            on orders.order_id = line_items.order_id
+    from line_items
     order by 3
 )
 

@@ -15,8 +15,8 @@ renamed as (
         n_regionkey as region_id,
 
         -- descriptions
-        n_name as name,
-        n_comment as comment
+        n_name as nation,
+        n_comment as nation_comment
 
     from source
 

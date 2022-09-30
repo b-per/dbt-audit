@@ -14,15 +14,9 @@ customer as (
 
 ),
 
-nation as (
+nations_regions as (
 
-    select * from {{ ref('stg_tpch_nations') }}
-),
-
-region as (
-
-    select * from {{ ref('stg_tpch_regions') }}
-
+    select * from {{ ref('int_nations_regions') }}
 ),
 
 final as (
@@ -36,18 +30,15 @@ final as (
         customer.account_balance,
         customer.market_segment,
 
-        nation.nation_id,
-        nation.name as nation,
+        nations_regions.nation_id,
+        nations_regions.nation,
         
-        region.region_id,
-        region.name as region    
+        nations_regions.region_id,
+        nations_regions.region    
 
-    from
-        customer
-        inner join nation
-            on customer.nation_id = nation.nation_id
-        inner join region
-            on nation.region_id = region.region_id
+    from customer
+        inner join nations_regions
+            on customer.nation_id = nations_regions.nation_id
     order by 1
 )
 
