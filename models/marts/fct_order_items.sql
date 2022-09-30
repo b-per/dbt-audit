@@ -1,21 +1,25 @@
 {{
     config(
-        materialized = 'table',
         tags = ['finance']
     )
 }}
 
-with order_item as (
+with
+
+order_item as (
     
     select * from {{ ref('int_order_items') }}
 
 ),
+
 part_supplier as (
     
     select * from {{ ref('int_part_suppliers') }}
 
 ),
+
 final as (
+
     select 
         order_item.order_item_id,
         order_item.order_id,
@@ -30,13 +34,14 @@ final as (
         order_item.commit_date,
         order_item.receipt_date,
         order_item.ship_mode,
+
         part_supplier.cost as supplier_cost,
         {# ps.retail_price, #}
+
         order_item.base_price,
         order_item.discount_percentage,
         order_item.discounted_price,
         order_item.tax_rate,
-        
         1 as order_item_count,
         order_item.quantity,
         order_item.gross_item_sales_amount,
@@ -47,13 +52,10 @@ final as (
 
     from
         order_item
-        inner join part_supplier
-            on order_item.part_id = part_supplier.part_id and
-                order_item.supplier_id = part_supplier.supplier_id
+    inner join part_supplier
+        on order_item.part_id = part_supplier.part_id and
+           order_item.supplier_id = part_supplier.supplier_id
+    order by 3
 )
-select 
-    *
-from
-    final
-order by
-    order_date
+
+select * from final
