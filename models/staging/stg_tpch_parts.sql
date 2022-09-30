@@ -6,7 +6,7 @@ source as (
 
 ),
 
-transformed as (
+renamed as (
 
     select
 
@@ -29,4 +29,4 @@ from source
 
 )
 
-select * from transformed
+select * from renamed

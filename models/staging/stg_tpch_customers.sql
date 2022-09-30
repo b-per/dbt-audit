@@ -1,10 +1,6 @@
-{{
-    config(
-        materialized='table'
-    )
-}}
+with
 
-with source as (
+source as (
 
     select * from {{ source('tpch', 'customer') }}
 

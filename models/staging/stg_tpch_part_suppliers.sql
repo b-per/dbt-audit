@@ -1,11 +1,6 @@
-{{
-    config(
-        materialized='view',
-        alias='stg_tpch_part_suppliers'
-    )
-}}
+with
 
-with source as (
+source as (
 
     select * from {{ source('tpch', 'partsupp') }}
 

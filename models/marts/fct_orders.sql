@@ -23,8 +23,7 @@ order_item_summary as (
         sum(net_item_sales_amount) as net_item_sales_amount
 
     from order_items
-    group by
-        1
+    group by 1
 ),
 
 final as (
@@ -45,8 +44,8 @@ final as (
         1 as order_count
 
     from order_items
-        inner join order_item_summary
-            on order_items.order_id = order_item_summary.order_id
+    inner join order_item_summary
+        on order_items.order_id = order_item_summary.order_id
     order by order_date
 )
 

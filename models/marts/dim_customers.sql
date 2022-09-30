@@ -32,15 +32,15 @@ final as (
         customer.customer_id,
         customer.name,
         customer.address,
+        customer.phone_number,
+        customer.account_balance,
+        customer.market_segment,
 
         nation.nation_id,
         nation.name as nation,
         
-        region.region_id as region_id,
-        region.name as region,
-        region.phone_number,
-        region.account_balance,
-        region.market_segment
+        region.region_id,
+        region.name as region    
 
     from
         customer
