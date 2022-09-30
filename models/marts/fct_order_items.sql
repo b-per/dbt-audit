@@ -12,7 +12,7 @@ with order_item as (
 ),
 part_supplier as (
     
-    select * from {{ ref('part_suppliers') }}
+    select * from {{ ref('int_part_suppliers') }}
 
 ),
 final as (
