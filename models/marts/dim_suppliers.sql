@@ -27,7 +27,7 @@ final as (
         supplier.account_balance
 
     from supplier
-    inner join nations_regions
+    left join nations_regions
             on supplier.nation_id = nations_regions.nation_id
 )
 

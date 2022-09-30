@@ -49,7 +49,7 @@ final as (
 
     from
         order_item
-    inner join part_supplier
+    left join part_supplier
         on order_item.part_id = part_supplier.part_id and
            order_item.supplier_id = part_supplier.supplier_id
     order by 3

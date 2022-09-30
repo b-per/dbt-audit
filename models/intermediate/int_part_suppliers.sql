@@ -29,12 +29,17 @@ part_supplier_summary as (
 
     select 
 
+        -- ids
         part_supplier.part_supplier_id,
         part.part_id,
+
+        -- descriptions
         part.name as part_name,
         part.manufacturer,
         part.brand,
         part.type as part_type,
+
+
         part.size as part_size,
         part.container,
         part.retail_price,
@@ -50,9 +55,9 @@ part_supplier_summary as (
         part_supplier.cost
         
 from part 
-inner join part_supplier
+left join part_supplier
         on part.part_id = part_supplier.part_id
-inner join supplier
+left join supplier
         on part_supplier.supplier_id = supplier.supplier_id
 order by 2
 

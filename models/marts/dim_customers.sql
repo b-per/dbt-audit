@@ -37,8 +37,8 @@ final as (
         nations_regions.region    
 
     from customer
-        inner join nations_regions
-            on customer.nation_id = nations_regions.nation_id
+    left join nations_regions
+        on customer.nation_id = nations_regions.nation_id
     order by 1
 )
 
