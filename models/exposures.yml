@@ -5,9 +5,7 @@ exposures:
     description: |
       # An h1 header
       ============
-
       Paragraphs are separated by a blank line.
-
       2nd paragraph. *Italic*, **bold**, and `monospace`
       Itemized lists look like:
         * this one
@@ -30,4 +28,4 @@ exposures:
     
     # IMPORTANT: determines the lineage relationship of the exposure construct to the rest of your DAG
     depends_on:
-      - ref('agg_ship_modes_dynamic_pivot')
+      - ref('fct_order_items')
