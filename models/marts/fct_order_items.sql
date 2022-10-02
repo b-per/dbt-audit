@@ -6,52 +6,53 @@
 
 with
 
-order_item as (
+order_items as (
     
     select * from {{ ref('int_order_items') }}
 
 ),
 
-part_supplier as (
+part_suppliers as (
     
-    select * from {{ ref('int_part_suppliers') }}
+    select * from {{ ref('stg_tpch_part_suppliers') }}
 
 ),
 
 final as (
 
     select 
-        order_item.order_item_id,
-        order_item.part_id,
-        order_item.supplier_id,
-        order_item.order_item_status_code,
-        order_item.return_flag,
-        order_item.line_number,
-        order_item.ship_date,
-        order_item.commit_date,
-        order_item.receipt_date,
-        order_item.ship_mode,
+        order_items.order_item_id,
+        order_items.part_id,
+        order_items.supplier_id,
+        order_items.order_item_status_code,
+        order_items.return_flag,
+        order_items.line_number,
+        order_items.ship_date,
+        order_items.commit_date,
+        order_items.receipt_date,
+        order_items.ship_mode,
 
-        part_supplier.cost as supplier_cost,
-        {# ps.retail_price, #}
+        part_suppliers.cost as supplier_cost,
+        part_suppliers.part_supplier_id,
+        part_suppliers.available_quantity,
+        part_suppliers.cost,
 
-        order_item.base_price,
-        order_item.discount_percentage,
-        order_item.discounted_price,
-        order_item.tax_rate,
+        order_items.base_price,
+        order_items.discount_percentage,
+        order_items.discounted_price,
+        order_items.tax_rate,
         1 as order_item_count,
-        order_item.quantity,
-        order_item.gross_item_sales_amount,
-        order_item.discounted_item_sales_amount,
-        order_item.item_discount_amount,
-        order_item.item_tax_amount,
-        order_item.net_item_sales_amount
+        order_items.quantity,
+        order_items.gross_item_sales_amount,
+        order_items.discounted_item_sales_amount,
+        order_items.item_discount_amount,
+        order_items.item_tax_amount,
+        order_items.net_item_sales_amount
 
-    from
-        order_item
-    left join part_supplier
-        on order_item.part_id = part_supplier.part_id and
-           order_item.supplier_id = part_supplier.supplier_id
+    from order_items
+    left join part_suppliers
+        on order_items.part_id = part_suppliers.part_id and
+           order_items.supplier_id = part_suppliers.supplier_id
     order by 3
 )
 

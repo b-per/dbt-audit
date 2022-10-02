@@ -1,6 +1,6 @@
 with
 
-supplier as (
+suppliers as (
 
     select * from {{ ref('stg_tpch_suppliers') }}
 
@@ -15,20 +15,18 @@ final as (
 
     select 
 
-        supplier.supplier_id,
-        supplier.supplier_name,
-        supplier.supplier_address,
+        suppliers.supplier_id,
+        suppliers.supplier_name,
+        suppliers.supplier_address,
+        suppliers.phone_number,
+        suppliers.account_balance,
         
         nations_regions.nation,
+        nations_regions.region
 
-        nations_regions.region,
-        
-        supplier.phone_number,
-        supplier.account_balance
-
-    from supplier
+    from suppliers
     left join nations_regions
-            on supplier.nation_id = nations_regions.nation_id
+            on suppliers.nation_id = nations_regions.nation_id
 )
 
 select * from final

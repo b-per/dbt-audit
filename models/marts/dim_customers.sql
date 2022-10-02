@@ -1,6 +1,7 @@
 {{
     config(
         materialized = 'incremental',
+        on_schema_change = 'sync_all_columns',
         unique_id='customer_id',
         transient=false
     )
@@ -17,6 +18,7 @@ customer as (
 nations_regions as (
 
     select * from {{ ref('int_nations_regions') }}
+
 ),
 
 final as (
@@ -24,16 +26,13 @@ final as (
     select 
 
         customer.customer_id,
-        customer.name,
+        customer.customer_name,
         customer.address,
         customer.phone_number,
         customer.account_balance,
         customer.market_segment,
 
-        nations_regions.nation_id,
         nations_regions.nation,
-        
-        nations_regions.region_id,
         nations_regions.region    
 
     from customer

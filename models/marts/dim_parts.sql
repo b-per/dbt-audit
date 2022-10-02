@@ -6,7 +6,7 @@
 
 with
 
-part as (
+parts as (
 
     select * from {{ref('stg_tpch_parts')}}
 
@@ -18,14 +18,14 @@ final as (
 
         part_id,
         manufacturer,
-        name,
+        part_name,
         brand,
-        type,
-        size,
+        part_type,
+        part_size,
         container,
         retail_price
 
-    from part
+    from parts
     order by 1
 )
 
