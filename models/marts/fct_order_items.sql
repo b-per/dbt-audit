@@ -33,7 +33,6 @@ final as (
         order_items.ship_mode,
 
         part_suppliers.cost as supplier_cost,
-        part_suppliers.part_supplier_id,
         part_suppliers.available_quantity,
         part_suppliers.cost,
 
